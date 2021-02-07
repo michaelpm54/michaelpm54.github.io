@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Data science</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Querying data via URL parameters and getting it as JSON. Machine learning terms: Training data is a set of observations. Observation Observation..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/data-science.html" rel="bookmark"
+           title="Permalink to Data science">Data science</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <p>Querying data via URL parameters and getting it as JSON.</p>
+<p>Machine learning terms:</p>
+<p>Training data is a set of observations.</p>
+<p>Observation<br>
+Observation<br>
+Observation<br>
+Observation  </p>
+<p>In other words an observation is a row.</p>
+<p>Inputs are features, outputs are targets.</p>
+<p>Our hypothesis function takes in the features of observations and comes close to predicting their target.</p>
+<p>training:
+<code>GradientDescent(Cost(Hyp(Linear(w0, w1, bias)))</code></p>
+<p>prediction:
+<code>Hyp(Linear(w0, w1, bias))</code></p>
+<h1>The Elements of Statistical Learning</h1>
+<h2>Data Mining, Inference, and Prediction</h2>
+<p><em>Supervised</em> learning is based on labeled data and training data. <em>Unsupervised</em> is when an algorithm tries to extract features and information on its own.</p>
+<p>In supervised, outcome guides the learning process.</p>
+<p>The goal is to build a <em>prediction model</em>, also called <em>learner</em>, to accurately predict the outcome from unseen observations. I don't yet know what learner refers to.</p>
+<p>It seems that the goal of unsupervised learning is less so to predict an outcome, but more to cluster and describe data, which is similar but I think slightly different.</p>
+<p>An example of email classification [spam,email] is given where each word is its own feature. Example:</p>
+<ul>
+<li>George 1.5  </li>
+<li>You 2.0  </li>
+<li>Remove 0.2  </li>
+<li>Free 0.3  </li>
+</ul>
+<p>In the example of spam email filtering, you would prefer to let some spam emails through than risk filtering out legitimate emails. The solution to this kind of problem will be presented later in the book.</p>
+<p>The other type of outcome (other than classification) is quantitative, i.e. it predicts a number.</p>
+<p>It's possible to assign a prediction of "don't know" to allow further classification by hand.</p>
+<p>Some interchangeable terms:</p>
+<p>In statistical literature, inputs and predictors.<br>
+In pattern recognition, features.  </p>
+<p>Outputs are called responses.</p>
+<p>Types of prediction:</p>
+<p>quantitative: regression<br>
+qualitative: classification  </p>
+<p>Inputs can also vary in type which can lead to different optimal prediction methods.</p>
+<p>A third type of variable is <em>ordered categorical</em> where there is an ordering between the values but the proximity is irrelevant. For example [small, medium, large]. The proximity of large to medium doesn't indicate anything concrete, in relation to small and medium.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

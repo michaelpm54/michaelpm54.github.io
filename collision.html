@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Collision</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Bounding volumes Bounding volumes are used to represent more complex objects. Only if the simple bounding volumes collide are tests performed on..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/collision.html" rel="bookmark"
+           title="Permalink to Collision">Collision</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <h2>Bounding volumes</h2>
+<p>Bounding volumes are used to represent more complex objects. Only if the simple bounding volumes collide are tests performed on the more complex geometry.</p>
+<h2>Basic primitive tests</h2>
+<p>Shapes:
+    - Lines<br>
+    - Rays<br>
+    - Segments<br>
+    - Planes<br>
+    - Triangles<br>
+    - Polygons<br>
+    - Spheres<br>
+    - Boxes<br>
+    - Cyliners<br>
+    - Polyhedra  </p>
+<p>Both static and moving.</p>
+<h2>Hierarchies</h2>
+<p><img alt="bvh" src="images/bvh.png"></p>
+<h2>Spatial partitioning</h2>
+<p>Splitting objects of a world or scene up for efficient traversal and comparison. Avoids worst case quadratic behaviour.</p>
+<h2>BSP tree hierarchies</h2>
+<p>A type of spatial partitioning. Can be used for both BVH and SP.</p>
+<h2>Implicit objects</h2>
+<p>Implicit objects aren't defined by vertices, edges, faces etc. but by a mathematical function. Things like spheres.</p>
+<p>Often by a function of the form <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><msup><mi>R</mi><mn>3</mn></msup><mo>=</mo><mo>&gt;</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">f: R^3 =&gt; R</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> where points given by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(x,y,z) &lt; 0</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> constitute the interior of the shape and 0 the boundary. A boundary defined by an implicit shape is called an implicit boundary. Implicit objects can be used as approximations of scene objects because they allow for fast intersection tests as the boundary is already known or can be quickly computed. Especially useful with lines and rays.</p>
+<h3>CSG objects</h3>
+<p>A constructive solid geometry object is defined as a binary tree with set-theoretic operations given in the internal nodes, such as difference and union. Vertices are not directly available.</p>
+<h2>Data source of geometry</h2>
+<p>Reasons to have a separate set of geometry on which collision detection is performed:<br>
+    - The rendering geometry is too complex.<br>
+    - Index buffers don't lend themselves well to collision detection.<br>
+    - Rendering geometry and collision geometry have different concerns and data storage. Better cache coherency.<br>
+    - Sometimes rendering geometry differs by design (e.g. snow/ground).<br>
+    - Collision data might need to be kept around even when the rendering geometry isn't visible.  </p>
+<p>Drawbacks:
+    - Data duplication.<br>
+    - Might take time to create the geometry (human time).<br>
+    - If built separately, the geometries may mismatch in places.  </p>
+<h2>Specialised collision detection algorithms</h2>
+<p>Particle systems might be better served by processing particles as a group rather than individually.</p>
+<p>Object-object and object-scene collisions might differ because other objects might be fast moving. A scene is static so more assumptions can be made.</p>
+<p>It is virtually always preferable to subtract the motion of one object from the other object, so that one object is stationary. A swept volume test becomes an exact intersection test.</p>
+<p>In some games, a swept volume is replaced by a <em>speedbox</em> which is an elongated volume covering the entire range of motion.</p>
+<h1>Resources</h1>
+<ul>
+<li><a href="https://realtimecollisiondetection.net/">Real-Time Collision Detection</a></li>
+<li><a href="https://github.com/alecjacobson/computer-graphics-bounding-volume-hierarchy">Image source</a></li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

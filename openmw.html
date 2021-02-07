@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>OpenMW</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="OpenMW Duration When you see duration as a parameter in the code base, as you will on most if not all update functions, it's the frame time. The..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/openmw.html" rel="bookmark"
+           title="Permalink to OpenMW">OpenMW</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <h1>OpenMW</h1>
+<h3>Duration</h3>
+<p>When you see <code>duration</code> as a parameter in the code base, as you will on most if not all <code>update</code> functions, it's the frame time.  The amount of time that has passed in seconds (fractional) since the last frame. Also called <code>dt</code>.</p>
+<h3>Pointers</h3>
+<p>A convention in the code base is to retrieve pointers or references to objects as needed through a singleton or other method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="k">auto</span> <span class="n">player</span> <span class="o">=</span> <span class="n">MWBase</span><span class="o">::</span><span class="n">Environment</span><span class="o">::</span><span class="n">get</span><span class="p">().</span><span class="n">getWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getPlayerPtr</span><span class="p">();</span>
+</code></pre></div>
+
+<p>This is one way of avoiding passing many parameters around but incurs a small runtime cost.</p>
+<h1>Animation</h1>
+<div class="highlight"><pre><span></span><code><span class="n">osg</span><span class="p">::</span><span class="n">Referenced</span><span class="p">:</span> <span class="n">Animation</span><span class="p">:</span> <span class="n">Class</span> <span class="n">encapsulation</span> <span class="n">animation</span> <span class="n">behaviour</span>
+    <span class="n">World</span>
+    <span class="n">Parent</span>
+    <span class="n">ResourceSystem</span>
+
+    <span class="n">Construction</span><span class="p">:</span>
+        <span class="n">ResetAnimationTimers</span><span class="p">()</span>
+        <span class="n">CreateLightListCallback</span><span class="p">()</span>
+
+    <span class="n">Activate</span><span class="p">:</span>
+        <span class="n">ActivateSkeleton</span><span class="p">()</span>
+
+    <span class="n">LoadAllAnimationsInFolder</span><span class="p">(</span><span class="n">ModelName</span><span class="p">,</span> <span class="n">BaseModelName</span><span class="p">):</span>
+        <span class="n">If</span> <span class="n">ModelName</span><span class="o">.</span><span class="n">StartsWith</span><span class="p">(</span><span class="s2">&quot;meshes&quot;</span><span class="p">):</span>
+            <span class="n">ModelName</span><span class="o">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;meshes&quot;</span><span class="p">,</span> <span class="s2">&quot;animations&quot;</span><span class="p">)</span>
+        <span class="n">ModelName</span><span class="o">.</span><span class="n">SetLast3Chars</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="n">NormaliseFilename</span><span class="p">(</span><span class="n">ModelName</span><span class="p">)</span>
+        <span class="n">For</span> <span class="n">File</span> <span class="ow">in</span> <span class="n">ModelName</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+            <span class="n">If</span> <span class="n">File</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">Matches</span><span class="p">(</span><span class="n">ModelName</span><span class="p">):</span>
+                <span class="n">If</span> <span class="n">File</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">EndsWith</span><span class="p">(</span><span class="s2">&quot;.kf&quot;</span><span class="p">):</span>
+                    <span class="n">AddSingleAnimSource</span><span class="p">(</span><span class="n">File</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">BaseModelName</span><span class="p">)</span>
+
+    <span class="n">AddAnimSource</span><span class="p">(</span><span class="n">ModelName</span><span class="p">,</span> <span class="n">BaseModelName</span><span class="p">):</span>
+        <span class="n">kfName</span> <span class="o">=</span> <span class="n">ModelName</span><span class="o">.</span><span class="n">Lowercase</span>
+        <span class="n">If</span> <span class="n">kfName</span><span class="o">.</span><span class="n">EndsWith</span><span class="p">(</span><span class="s2">&quot;.nif&quot;</span><span class="p">):</span>
+            <span class="n">kfName</span><span class="o">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;.nif&quot;</span><span class="p">,</span> <span class="s2">&quot;.kf&quot;</span><span class="p">)</span>
+        <span class="n">AddSingleAnimSource</span><span class="p">(</span><span class="n">kfName</span><span class="p">,</span> <span class="n">BaseModelName</span><span class="p">)</span>
+        <span class="n">If</span> <span class="n">SettingsManager</span><span class="o">.</span><span class="n">UseAdditionalAnimSources</span><span class="p">:</span>
+            <span class="n">LoadAllAnimationsInFolder</span><span class="p">(</span><span class="n">kfName</span><span class="p">,</span> <span class="n">BaseModelName</span><span class="p">)</span>
+
+    <span class="n">AddSingleAnimSource</span><span class="p">(</span><span class="n">kfName</span><span class="p">,</span> <span class="n">BaseModelName</span><span class="p">):</span>
+        <span class="n">If</span> <span class="n">kfName</span><span class="o">.</span><span class="n">DoesntExist</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="n">AnimSrc</span> <span class="o">=</span> <span class="n">ResourceSystem</span><span class="o">.</span><span class="n">KeyFrameManager</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">kfName</span><span class="p">)</span>
+        <span class="n">If</span> <span class="n">AnimSrc</span><span class="o">.</span><span class="n">KeyFramesAreInvalid</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="n">For</span> <span class="n">Controller</span> <span class="ow">in</span> <span class="n">AnimSrc</span><span class="o">.</span><span class="n">KeyFrames</span><span class="o">.</span><span class="n">Controllers</span><span class="p">:</span>
+            <span class="n">BoneName</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">Lowercase</span>
+            <span class="n">If</span> <span class="n">BoneName</span> <span class="ow">in</span> <span class="n">NodeMap</span><span class="p">:</span>
+                <span class="n">BlendMask</span> <span class="o">=</span> <span class="n">DetectBlendMask</span><span class="p">(</span><span class="n">NodeMap</span><span class="p">[</span><span class="n">BoneName</span><span class="p">])</span>
+                <span class="n">ClonedController</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">Copy</span><span class="p">()</span>
+                <span class="n">ClonedController</span><span class="o">.</span><span class="n">SetSource</span><span class="p">(</span><span class="n">AnimationTimer</span><span class="p">[</span><span class="n">BlendMask</span><span class="p">])</span>
+                <span class="n">AnimSrc</span><span class="o">.</span><span class="n">Controllers</span><span class="p">[</span><span class="n">BlendMask</span><span class="p">]</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">BoneName</span><span class="p">,</span> <span class="n">ClonedController</span><span class="p">)</span>
+        <span class="n">AnimSources</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">AnimSrc</span><span class="p">)</span>
+        <span class="n">RootNode</span><span class="o">.</span><span class="n">AssignControllers</span><span class="p">()</span>
+        <span class="n">If</span> <span class="n">Not</span> <span class="n">AccumulationRoot</span><span class="p">:</span>
+            <span class="n">AccumulationRoot</span> <span class="o">=</span> <span class="n">NodeMap</span><span class="p">[</span><span class="s2">&quot;bip01&quot;</span><span class="p">]</span> <span class="n">If</span> <span class="n">Exists</span> <span class="n">Else</span> <span class="n">NodeMap</span><span class="p">[</span><span class="s2">&quot;root bone&quot;</span><span class="p">]</span>
+
+    <span class="n">Play</span><span class="p">(</span><span class="n">Group</span><span class="p">,</span> <span class="n">Prio</span><span class="p">,</span> <span class="n">BlendMask</span><span class="p">,</span> <span class="n">AutoDisable</span><span class="p">,</span> <span class="n">SpeedMul</span><span class="p">,</span> <span class="n">Start</span><span class="p">,</span> <span class="n">Stop</span><span class="p">,</span> <span class="n">StartPt</span><span class="p">,</span> <span class="n">Loops</span><span class="p">,</span> <span class="n">LoopFallback</span><span class="p">):</span>
+        <span class="n">If</span> <span class="n">NoRoot</span> <span class="ow">and</span> <span class="n">NoAnimSources</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">If</span> <span class="n">Group</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">For</span> <span class="n">State</span> <span class="ow">in</span> <span class="n">AnimStates</span><span class="p">:</span>
+            <span class="n">If</span> <span class="n">State</span><span class="o">.</span><span class="n">Prio</span> <span class="o">==</span> <span class="n">Prio</span><span class="p">:</span>
+                <span class="n">AnimStates</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">State</span><span class="p">)</span>
+        <span class="n">If</span> <span class="n">AnimStates</span><span class="p">[</span><span class="n">Group</span><span class="p">]:</span>
+            <span class="n">AnimStates</span><span class="p">[</span><span class="n">Group</span><span class="p">]</span><span class="o">.</span><span class="n">Prio</span> <span class="o">=</span> <span class="n">Prio</span>
+        <span class="n">For</span> <span class="n">Src</span> <span class="ow">in</span> <span class="n">AnimSources</span><span class="o">.</span><span class="n">Reverse</span><span class="p">():</span>
+            <span class="n">Pass</span>                
+
+<span class="o">/</span><span class="n">ActorAnimation</span> <span class="ow">is</span><span class="o">-</span><span class="n">a</span> <span class="n">Animation</span><span class="p">:</span> <span class="n">Class</span> <span class="n">encapsulating</span> <span class="n">animation</span> <span class="n">behaviour</span> <span class="n">specialised</span> <span class="k">for</span> <span class="n">Actors</span>
+    <span class="n">World</span>
+    <span class="n">Parent</span>
+    <span class="n">Resources</span>
+</code></pre></div>
+
+<h1>AI</h1>
+<p>Generally the chain of execution for AI processing looks as follows.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Actors</span><span class="o">.</span><span class="n">update</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">paused</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">aiEnabled</span> <span class="ow">and</span> <span class="n">actor</span><span class="o">.</span><span class="n">inProcessingRange</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cellChanged</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">actor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">player</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">actor</span><span class="o">.</span><span class="n">concious</span><span class="p">:</span>
+                            <span class="n">actor</span><span class="o">.</span><span class="n">aiSequence</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Additionally, there's a parameter called <code>outOfRange</code> which lets the sequence decide whether to execute the package or not.<br>
+If the actor that the package belongs to is out of range, the package wno't execute unless it has the "alwaysActive" flag set.</p>
+<p>In every-day situations we write code where instructions are executed sequentially and then it finishes.<br>
+Games are a bit different in that they execute similar code repeatedly in a loop. If we wanted an AI actor in our game
+to go to <code>point X</code>, we can't just set their position to <code>point X</code> because they would teleport there instantly. We need to spread
+out the action over several frames.</p>
+<p>Following, some AI actions shouldn't happen instantly but over time. An example in OpenMW is the "avoid door" action.</p>
+<p>This action tells the actor to avoid an opening door; to move out of the way of its collision geometry. It achieves this by implementing the behaviour
+in a concrete class <code>AiAvoidDoor</code> of base class type <code>AiPackage</code>. This class is pushed to the front of a stack of <code>AiPackage</code>, using the <code>AiSequence</code> container class.</p>
+<h2>AiSequence</h2>
+<p>Each creature in the OpenMW world world has an <code>AiSequence</code>.</p>
+<p>The <code>AiSequence</code> class has various methods for probing the packages it contains.</p>
+<p>The core of <code>AiSequence</code> is the <code>execute</code> method. This is the part that runs every frame. This function calls the <code>execute</code> function
+of the current <code>AiPackage</code>. <code>AiPackage::execute</code> is slightly different in that it returns a boolean value which represents whether the package is finished or not.</p>
+<h2>AiAvoidDoor</h2>
+<p>The default duration for AiAvoidDoor is 1 second. Upon each <code>execute</code> (update), the <code>mDuration</code> member is decremented by the frametime (time passed since the last frame). The frametime is normally less than a second. The conditions for returning <code>true</code> on <code>execute</code> are when 1 second has passed, or when the door has stopped moving. At this point the <code>AiSequence</code> which holds the <code>AiAvoidDoor</code> package removes it from the stack.</p>
+<h1>ResourceSystem</h1>
+<p>The resource system is a container class for various managers. Namely, scenes, images, nif's, key frames, and also has a space for polymorphic resource managers.</p>
+<h1>WindowManager</h1>
+<p>the WindowManager is <em>not</em> referring to the OS window (e.g. SDL, GLFW etc.) but to the stuff being rendered inside the window.</p>
+<p>The ResourceSystem instance is passed to WindowManager in construction.<br>
+Listed are the things WindowManager needs ResourceSystem for:</p>
+<ul>
+<li>Loading screen</li>
+<li>Main menu</li>
+<li>Inventory window</li>
+<li>Quest list</li>
+<li>Werewolf overlay(?)</li>
+<li>Player hit fader(?)</li>
+<li>Character creation menu</li>
+<li>Window icon</li>
+<li>Book art</li>
+<li>Cursors</li>
+</ul>
+<p>The wndow manager has a map of GUI states. It could conceivably be a vector to be more efficient but I suppose a map better represents what it is and the gains would be practically nonexistent.</p>
+<p>On <code>WindowManager::initUI</code>, which is called only once in <code>Engine::prepareEngine</code>, the map of GUI mode states is populated with <code>GuiModeState</code>s. A <code>GuiModeState</code> wraps a <code>WindowBase</code> to provide some extra functionality.</p>
+<p>Not every <code>WindowBase</code> is converted to a <code>GuiModeState</code>.</p>
+<p>Example: The main menu is a gui mode state.</p>
+<div class="highlight"><pre><span></span><code><span class="n">MainMenu</span><span class="o">*</span> <span class="n">menu</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MainMenu</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">mResourceSystem</span><span class="o">-&gt;</span><span class="n">getVFS</span><span class="p">(),</span> <span class="n">mVersionDescription</span><span class="p">);</span>
+<span class="n">mGuiModeStates</span><span class="p">[</span><span class="n">GM_MainMenu</span><span class="p">]</span> <span class="o">=</span> <span class="n">GuiModeState</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
+<span class="n">mWindows</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
+</code></pre></div>
+
+<p>On the other hand, the stats window isn't.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mStatsWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StatsWindow</span><span class="p">(</span><span class="n">mDragAndDrop</span><span class="p">);</span>
+<span class="n">mWindows</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">mStatsWindow</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Crucially, a gui mode state can hold a list of windows. For example {TODO: INSERT EXAMPLE HERE}.</p>
+<h2>WindowManager::update(float frameDuration)</h2>
+<p>The list of windows in each state is updated, as well as various other things.</p>
+<h1>osgViewer</h1>
+<p>The viewer provides a window(?) for the 3D environment that OSG uses, as well as the scene graph(?).</p>
+<p>An instance is created in <code>Engine::go()</code>.</p>
+<p>Next, an instance of the concrete <code>World</code> class is created.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mEnvironment</span><span class="p">.</span><span class="n">setWorld</span><span class="p">(</span> <span class="k">new</span> <span class="n">MWWorld</span><span class="o">::</span><span class="n">World</span> <span class="p">(</span><span class="n">mViewer</span><span class="p">,</span> <span class="n">rootNode</span><span class="p">,</span> <span class="n">mResourceSystem</span><span class="p">.</span><span class="n">get</span><span class="p">()[...]);</span>
+</code></pre></div>
+
+<p>Note that <code>World</code> takes the viewer as a parameter. The viewer comes with its own camera implementation.</p>
+<h1>World</h1>
+<h2>Info</h2>
+<p>The world is instantiated in <code>Engine::prepareEngine()</code>.</p>
+<p>The bulk of the world implementation in OpenMW is defined in apps/openmw/mwworld/worldimp.cpp (as the name would suggest.)</p>
+<p>The world serves as a container and controller for the various systems of the OpenMW world, such as physics, rendering, the player, navigation, weather, etc.</p>
+<p>The world in worldimp.{cpp,h } is an implementation of the base class <code>MWBase::World</code>.</p>
+<p>The RenderingManager is initialised in <code>World::World()</code></p>
+<p>For some reason, <code>World::setupPlayer()</code> is called immediately after construction instead of in the constructor.</p>
+<h2>Enable/disable</h2>
+<p>When an item reference is enabled or disabled, it is first enabled itself and then gets added to the scene if the following conditions are met:</p>
+<ul>
+<li>The item's cell exists in the scene</li>
+<li>The number of items in the scene is more than zero</li>
+</ul>
+<p>The same is true for disabling an item, except it is removed.</p>
+<h2>Player</h2>
+<p>The player holds a LiveCellRef<ESM::NPC> called <code>mPlayer</code>. On construction of Player, the LiveCellRef is instantiated with a type or key of "player".</p>
+<p><code>MWWorld::Class</code> has a method called <code>registerClass</code>. At some point, I assume <code>ESM::NPC</code> gets registered with "player".</p>
+<p>The mClass pointer member of <code>LiveCellRefBase</code> gets set to <code>&amp;Class::get("player")</code>, whcih evaluates to <code>ESM::NPC</code>.</p>
+<h2>Moving of objects</h2>
+<div class="highlight"><pre><span></span><code><span class="n">MWWorld</span><span class="o">::</span><span class="n">Ptr</span> <span class="n">World</span><span class="o">::</span><span class="n">moveObject</span><span class="p">(</span><span class="k">const</span> <span class="n">Ptr</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">CellStore</span><span class="o">*</span> <span class="n">newCell</span><span class="p">,</span> <span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">float</span> <span class="n">y</span><span class="p">,</span> <span class="kt">float</span> <span class="n">z</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">movePhysics</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>How does the player move in the world?</h3>
+<p>Let's go with the basic action of holding the "W" key to move forward.  </p>
+<p>First of all, on key press the stack looks like this:</p>
+<p><code>Engine::frame -&gt; InputManager::update -&gt; ActionManager::update -&gt; Player::setForwardBackward</code></p>
+<p>Then to add the movement to a queue each frame:</p>
+<p><code>Engine::frame -&gt; MechanicsManager::update -&gt; Actors::update -&gt; CharacterController::update -&gt; World::queueMovement</code></p>
+<p>Then on update:</p>
+<p><code>Engine::frame -&gt; World::updatePhysics -&gt; World::doPhysics -&gt; PhysicsSystem::applyQueuedMovement -&gt; MovementSolver::move</code></p>
+<h4>apps/openmw/mwinput/bindingsmanager.cpp</h4>
+<p>A map of OpenMW-defined actions (enum) is mapped to an SDL scancode.<br>
+The <code>A_MoveForward</code> action is mapped to <code>SDL_SCANCODE_W</code>.</p>
+<h4>apps/openmw/mwinput/actionmanager.cpp</h4>
+<p>in <code>ActionManager::update</code>, the bindings manager is tested for the <code>A_MoveForward</code> action. If it's active, the player's "move forward" flag is set. In real terms this means <code>Player::MWWorld::Npc::MWMechanics::Movement::mPosition[1]</code> gets set to 1.0f.</p>
+<p>This is done via <code>ptr.getClass().getMovementSettings(ptr).mPosition[1] = value;</code>.</p>
+<hr>
+<p>Next comes the update portion.</p>
+<p>Each Actor has a CharacterController. This controller is updated by way of:</p>
+<p><code>Engine::frame -&gt; MechanicsManager::update -&gt; Actors::update</code></p>
+<h4>apps/openmw/engine.cpp</h4>
+<p><code>Engine::frame</code> calls <code>World::updatePhysics</code>.</p>
+<h4>apps/openmw/mwworld/worldimp.cpp</h4>
+<p><code>World::updatePhysics</code> calls <code>World::doPhysics</code> if not paused.</p>
+<p><code>World::doPhysics</code> calls <code>PhysicsSystem::applyQueuedMovement</code>.</p>
+<h4>apps/openmw/mwphysics/physicssystem.cpp</h4>
+<p><code>PhysicsSystem::applyQueuedMovement</code> iterates the movement queue and calls <code>MovementSolver::move</code> on each actor, which returns the calculated position after movement.</p>
+<h1>MainMenu</h1>
+<p>Upon construction, the first thing the MainMenu does is call its base class constructor, <code>WindowBase</code> with the name of the OpenMW main menu layout file; <code>openmw_mainmenu.layout</code>. This file only adds some version text in the bottom right of the window.</p>
+<p>Continuing in the <code>MainMenu</code> constructor, the member <code>mVersionText</code> widget is found by name (matched in the .layout file mentioned above), then the actual text is set.</p>
+<p>MainMenu contains map of buttons, indexable by the button name (string).</p>
+<p>They are inserted into the map each time <code>MainMenu::update()</code> is called, and their highlight/normal/pushed properties are set, by way of texture names. Then the click callback is assigned.</p>
+<h1>Scene</h1>
+<p>The scene instance exists in <code>World</code>.</p>
+<p>The cell grid is a 3x3 grid of cells that surround the player. Processing is done on these cells, and not the ones outside (barring special circumstances?)</p>
+<h2>Terrain</h2>
+<p>A call to <code>changeCellGrid</code> is made if the player crosses a threshold when moving through the world. After a list of cells to load is collected, they are loaded through <code>loadCell</code> one by one.</p>
+<p>-&gt; Scene::loadCell</p>
+<h1>Resources</h1>
+<ul>
+<li>https://github.com/OpenMW/openmw</li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

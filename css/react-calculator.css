@@ -1,0 +1,92 @@
+body {
+	background-color: rgb(160, 160, 200);
+	display: flex;
+	flex-direction: rows;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	font-family: consolas, monospace, sans-serif;
+	font-size: 18pt;
+  }
+  
+  .grid-container {
+	width: 30vw;
+	height: 60vh;
+	background-color: rgb(160, 200, 200);
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 0.4fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-areas:
+	  "display display display"
+	  "formula formula formula"
+	  "clear back equals"
+	  "ops ops ops"
+	  "n n n"
+	  "n n n"
+	  "n n n"
+	  "decimal n .";
+	text-align: center;
+	padding: 5px;
+	border: 3px double orange;
+	grid-gap: 4px;
+  }
+  
+  .grid-container > div {
+	background-color: rgb(60, 100, 100);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	text-shadow: 1px 1px 1px rgba(55, 44, 33, 1);
+  }
+  
+  #clear:hover, #back:hover, #equals:hover, #decimal:hover, .number:hover {
+	background-color: rgb(150, 190, 50, 0.4);
+	text-shadow: 2px 1px 2px rgba(150, 150, 253, 1);
+  }
+  
+  #display {
+	cursor: default;
+	grid-row: 1;
+	grid-column: span 3;
+	color: lightgreen;
+  }
+  
+  #zero {
+	 grid-column: 2;
+  }
+  
+  #ops {
+	grid-row: 3;
+	grid-column: span 3;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	background-color: rgb(160, 200, 200);
+	gap: 5px;
+  }
+  
+  #ops > div {
+	width: 100%;
+	height: 100%;
+	background-color: #a76830;
+  }
+  
+  #ops > div:hover {
+	background-color: lightgreen;
+  }
+  
+  #decimal {
+	grid-row: 8;
+	grid-column: 1;
+  }
+  
+  #formula {
+	grid-row: 2;
+	grid-column: span 3;
+  }
+  

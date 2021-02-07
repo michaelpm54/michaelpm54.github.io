@@ -1,0 +1,76 @@
+html,
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #6677aa;
+  font-family: "PT Sans", sans-serif;
+  font-size: 20pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root * {
+  margin: 0;
+}
+
+#quote-box {
+  background-color: #dddddd;
+  width: 40vw;
+  position: relative;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  box-shadow: #222222 3px 5px 10px;
+}
+
+#new-quote {
+  background-color: #559955;
+  color: white;
+  box-shadow: grey 2px 2px 2px;
+  padding: 5px 10px 5px 10px;
+  display: inline;
+  font-size: 15pt;
+  margin: 5px;
+  margin-right: 25px;
+}
+
+#new-quote:hover {
+  background-color: #69ac69;
+}
+
+#new-quote:active {
+  background-color: #429442;
+}
+
+#button-container {
+  margin-top: 35px;
+  font-size: 13pt;
+  padding-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a::after {
+  font-family: "Font Awesome 5 Brands";
+  content: "\f099";
+}
+
+i {
+  color: #000;
+  content: "\f35a"; /* You should use \ and not /*/
+  font-family: "Font Awesome 5 Free"; /* This is the correct font-family*/
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+}
+
+#author {
+  margin-top: 5px;
+  font-size: 14pt;
+  color: rgb(212 68 0);
+  font-weight: bold;
+}

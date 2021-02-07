@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>React</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="React can be installed with npm i -g create-react-app. React app is created with create-react-app <name>. The React app is installed in the <name>..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/react.html" rel="bookmark"
+           title="Permalink to React">React</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <p>React can be installed with <code>npm i -g create-react-app</code>.
+React app is created with <code>create-react-app &lt;name&gt;</code>.<br>
+The React app is installed in the <code>&lt;name&gt;</code> directory.<br>
+By default <code>create-react-app</code> installs and uses <code>yarn</code> to install stuff.</p>
+<div class="highlight"><pre><span></span><code><span class="err">[mpm@winebox Zaras]$ create-react-app zaras</span>
+<span class="err">[mpm@winebox Zaras]$ tree . -L 2</span>
+<span class="err">-- zaras</span>
+<span class="err">    |-- README.md</span>
+<span class="err">    |-- node_modules</span>
+<span class="err">    |-- package.json</span>
+<span class="err">    |-- public</span>
+<span class="err">    |-- src/</span>
+<span class="err">        |-- App.css</span>
+<span class="err">        |-- App.js</span>
+<span class="err">        |-- App.test.js</span>
+<span class="err">        |-- index.css</span>
+<span class="err">        |-- index.js</span>
+<span class="err">        |-- logo.svg</span>
+<span class="err">        |-- serviceWorker.js</span>
+<span class="err">        `-- setupTests.js</span>
+<span class="err">    `-- yarn.lock</span>
+<span class="err">[mpm@winebox zaras]$ tree src/</span>
+<span class="err">src/</span>
+<span class="err">|-- App.css</span>
+<span class="err">|-- App.js</span>
+<span class="err">|-- App.test.js</span>
+<span class="err">|-- index.css</span>
+<span class="err">|-- index.js</span>
+<span class="err">|-- logo.svg</span>
+<span class="err">|-- serviceWorker.js</span>
+<span class="err">`-- setupTests.js</span>
+</code></pre></div>
+
+<p><code>App.js</code> can be considered the main focal point of a React app.<br>
+It defines a function called <code>App</code> that returns HTML.</p>
+<p>You can create a react component. An object. For example a function that returns a react object.</p>
+<p>Here's an example:</p>
+<div class="highlight"><pre><span></span><code> function Article() {  
+     return (  
+         <span class="nt">&lt;div&gt;</span>  
+             <span class="nt">&lt;h1&gt;</span>{ article.title }<span class="nt">&lt;/h1&gt;</span>  
+             <span class="nt">&lt;section&gt;</span>{ article body }<span class="nt">&lt;/section&gt;</span>  
+         <span class="nt">&lt;/div&gt;</span>  
+     )  
+ }
+</code></pre></div>
+
+<p>In this case it's inferring the type to be a react component.</p>
+<p>"A good practice is to have only one file for each component "</p>
+<h1>COMPONENTS</h1>
+<p>A component is basically HTML and JavaScript mixed in a React-custom way.</p>
+<p>Here's how to create and use a component without having to know any syntax.</p>
+<p>You need an object. Whether it's a function that returns an object or a class that extends component, it doesn't matter.</p>
+<p>If it's a function you can pass the properties from the HTML as a parameter. Classes can use constructors.</p>
+<p>A component can be instanced using its class or function name. Class components can have state.</p>
+<h1>Elements</h1>
+<p>An element is a fundamental building block in React. Elements and components cannot be ordinarily changed; they must be re-rendered with ReactDom.render().</p>
+<p>The difference between an element and a component is that components can take parameters and they return an element.</p>
+<p>The entry point for react is an HTML tag with the id "root". You can have multiple roots (with different IDs), but conventionally there is only one.</p>
+<h1>JSX</h1>
+<p>JSX is compiled with Babel to produce JS. It lets you seamlessly use HTML tags in your code.</p>
+<h1>Properties</h1>
+<p>With components, you can take in properties. I'll let this quote from the official docs explain it:</p>
+<p>'When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. We call this object “props”.'</p>
+<p>With a code sample:</p>
+<p><img alt="qownnotes-media-ircVQw" src="media/qownnotes-media-ircVQw-722.png"></p>
+<p>For example, a function can take an argument which we'll call props, and you can then use that parameter in the function. Basic stuff.</p>
+<p>The nuance is that if a function returns an Element then it is a component, but can only be used as one if it has a maximum of <em>one</em> parameter. This is the blueprint of a <strong>function component</strong>.</p>
+<h1>Components</h1>
+<p><em>Note: Always start component names with a capital letter.</em></p>
+<p>You can also define a component as an ES6 class.</p>
+<p>You must inherit (<code>extend</code>) from React.Component and it must have a <code>render</code> method which returns an element.</p>
+<p>As mentioned earlier, elements and components are generally immutable, but <strong>stateful components</strong> aren't.</p>
+<h1>Redux</h1>
+<p>You define your actions. These are usually functions. They return an object with a <code>type</code> member specifying the user-defined name of the action. This is a string. It is good practice to define a constant with this string to avoid typos.</p>
+<p>A store requires a reducer function. The reducers job is to take in an action object and return a new state reflecting the requested change in state. It is a pure function. No state is modified. The function takes in the current state and an action in case you want the new state to be based on the old state.</p>
+<p>To actually create the store you need to call <code>const store = Redux.createStore(reducer, Redux.applyMiddleware(ReduxThunk.default))</code>. Obviously this specific invocation creates an asynchronous store.</p>
+<p>After this you can dispatch actions to the store. This looks like the following:</p>
+<p><code>store.dispatch(action(args));</code>.</p>
+<p>Asynchronous actions require a bit more work.</p>
+<p>For each asynchronous "action" you should create two actions. One for the start, one for the finish. The key difference is that the function used to dispatch should not return an object. It should return a function which takes a "dispatch" function. You dispatch from within this function.</p>
+<h1>Resources</h1>
+<ul>
+<li>
+<p>https://blog.soshace.com/react-lessons-lesson-1-introduction/</p>
+</li>
+<li>
+<p>https://reactjs.org/docs/components-and-props.html</p>
+</li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

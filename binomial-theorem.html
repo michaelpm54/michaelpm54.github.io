@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Binomial theorem</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="The binomial theorem is linked to Pascal's Triangle. It's a method of multiplying out an exponential binomial, such as (x - 2)^4. In this..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/binomial-theorem.html" rel="bookmark"
+           title="Permalink to Binomial theorem">Binomial theorem</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <p><link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"
+      crossorigin="anonymous"></p>
+<p>The binomial theorem is linked to Pascal's Triangle.</p>
+<p>It's a method of multiplying out an exponential binomial, such as (x - 2)^4.</p>
+<p>In this particular case you'd start at row 4 of pascal's triangle (starting at row 0).</p>
+<p>The first number gets the coefficient of the first number (always 1) and is raised to the original exponent (4) and goes down to 0.<br>
+The second number doesn't get a coefficient but get the reverse of the first exponent. So it would start at 0, and go up to 4.</p>
+<hr>
+<p>The binomial theorem is really just the logic/maths underpinning the power rule in differentiation.  That <img alt="" src="/images/media/qownnotes-media-TrREMn-23149.png">.</p>
+<hr>
+<p>More precisely:</p>
+<p>Using the formula for the derivative, in the numerator you have a difference of powers and in the denominator you have the difference in x. Using binomial expansion in the numerator, you end up with the difference in terms (x and dx) multiplied by the expanded binomial, so for example x^2 + dx^2 + 2xdx.</p>
+<p>The first term and the denominator cancel and you're left with the expansion. As dx approaches x you can replace dx with x and the terms in the expansion combine with the powers and turn into x^-1 + x^-1 ... n times.</p>
+<p>Key point: <strong>n times</strong>.</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><msup><mi>x</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">nx^{n-1}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span></p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

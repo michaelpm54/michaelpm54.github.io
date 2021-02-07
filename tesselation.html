@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Tesselation</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Broken up into three stages: - Tesselation control shader (TCS) - Tesselation evaluation shader (TES) The tesselation stage operates on patches. A..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/tesselation.html" rel="bookmark"
+           title="Permalink to Tesselation">Tesselation</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <p>Broken up into three stages:<br>
+- Tesselation control shader (TCS)<br>
+- Tesselation evaluation shader (TES)  </p>
+<p><img alt="qownnotes-media-jdiwDC" src="/images/media/qownnotes-media-jdiwDC-9042.png"></p>
+<p>The tesselation stage operates on <em>patches</em>.</p>
+<blockquote>
+<p>A GL_PATCHES primitive has no implied topology. It's up to your shader to interpret the order.</p>
+<p>When tessellation is active, the mode you use in your drawing commands should always
+be GL_PATCHES.</p>
+</blockquote>
+<h3>What does it do?</h3>
+<p>Tesselation breaks a larger primitive (patch) into smaller primitives, e.g. to add more detail.</p>
+<h3>How do you pass vertices to the TCS?</h3>
+<p>Vertices are automatically passed to the TCS from the vertex shader <em>in groups</em>.</p>
+<p>The number of vertices passed at a time is configured with <code>glPatchParameteri(GL_PATCH_VERTICES, &lt;amount&gt;);</code></p>
+<h3>What exactly does the TCS do?</h3>
+<p>The TCS is responsible for:</p>
+<ul>
+<li>Per patch inner and outer tesselation factors</li>
+<li>Position and other <em>attributes</em> for each <em>output control point</em>.</li>
+<li>Per-patch user-defined in-out variables.</li>
+</ul>
+<h3>What are "tesselation factors"?</h3>
+<p>The tesselation factors are used by the fixed-function tesselation engine to determine in what way the patch will be broken up into smaller primitives.</p>
+<h3>What is the output of a TCS?</h3>
+<p>The TCS outputs a new patch (a new collection of vertices). This new patch is preserved and sent to the TES after the tesselation engine runs. The tesselation engine does not modify this patch.</p>
+<p>Per-patch variables can be declared in the TCS.</p>
+<p>The layout of a patch can be defined here (as well as <code>glPatchParameteri</code>), but I assume they must match.</p>
+<p><code>layout (vertices = 4) out;</code></p>
+<h3>What is the output of the fixed function tesselation engine?</h3>
+<p>The tesselator outputs barycentric coordinates that determine where on the patch the new vertices are.</p>
+<h3>Tesselation configuration</h3>
+<p>Different primitive modes can be used by the tesselator: triangles, quads, isolines. This also controls the interpretation of the gl_TessCoord in the TES.</p>
+<p>When quads are chosen, the tesselator will generate quads then break them up into triangles.</p>
+<h3>How do you set the tesselation levels?</h3>
+<p><code>gl_TessLevelInner</code> is a 2-element array.</p>
+<p>The first element should be set to the horizontal (u) direction, and the second element to the vertical (v) direction.</p>
+<p><code>gl_TessLevelOuter</code> has 4 elements for some reason.<strong>*</strong></p>
+<p><img alt="qownnotes-media-EbPbbv" src="/images/media/qownnotes-media-EbPbbv-16827.png"></p>
+<h3>Example TCS and TES</h3>
+<p><img src="/images/media/qownnotes-media-CEMyum-23824.png" width="600" />
+<img src="/images/media/qownnotes-media-SvSnSA-11250.png" width="600" />
+<img src="/images/media/qownnotes-media-SgLbfj-14420.png" width="600" /></p>
+<p>From this example, you can deduce that the tesselation factors can be thoughts of as inverses.</p>
+<p>5.0f = 1/5 = 5 triangles along this axis (divde the axis by five).</p>
+<h1>Resources</h1>
+<ul>
+<li>OpenGL Superbible 7th Edition  </li>
+<li>https://web.engr.oregonstate.edu/~mjb/cs519/Handouts/tessellation.1pp.pdf</li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

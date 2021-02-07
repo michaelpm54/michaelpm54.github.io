@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Skybox</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="The concept behind rendering a skybox is to use a cubemap and only render what's necessary. In the fragment shader instead of using texture..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Portfolio - Michael McAssey</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">Misc</a></li>
+                    <li class="active"><a href="/category/notes.html">Notes</a></li>
+                    <li><a href="/category/systems-portfolio.html">Systems Portfolio</a></li>
+                    <li><a href="/category/web-portfolio.html">Web Portfolio</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/skybox.html" rel="bookmark"
+           title="Permalink to Skybox">Skybox</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-02-07T00:00:00+01:00">
+                Published: Sun 07 February 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/michael-mcassey.html">Michael McAssey</a>
+        </address>
+<p>In <a href="/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->      <p>The concept behind rendering a skybox is to use a cubemap and only render what's necessary.</p>
+<p>In the fragment shader instead of using texture coordinates you use a direction because that's what cubemaps use.</p>
+<p>What you'll want to do is take the view matrix and cut off the translation so it's always around our head, the camera, but keep the rotation so it affects the cubemap's direction vectors.</p>
+<p>The easy and visually correct way to render a skybox would be to render the cubemap first so transparent object rendered afterwards show the skybox through them.</p>
+<p>The only problem at this point is that because the cube is rendered around our camera, we can't see anything else! So disable the depth test while we draw it.</p>
+<p>This works, but is a bit inefficient because we render all parts of the skybox in our field of view, even if it will later be covered up by other geometry. A workaround is to render the skybox last.</p>
+<p>By default, fragments the are higher or equal in depth to the existing value are discarded. This setting is called <code>GL_LESS</code>, as in "only fragments with a depth value LESS than the existing one pass".</p>
+<p><img src="/images/media/qownnotes-media-VyHmYt-751286445.png" width="400" /></p>
+<p>The camera is looking at the green box.<br>
+- The orange box is obscured, so we shouldn't be able to see it.<br>
+- Its depth value is greater, so we should discard it.  </p>
+<p>These behaviours align.</p>
+<p>When we draw the skybox last, we want to draw it in front of other geometry, but only where there is no other geometry.  By default, the depth buffer is filled with values of 1.0, i.e. where there is no other geometry, so we set glDepthFunc to <code>GL_LEQUAL</code>; where the depth value is less than or equal to the existing value, proceed with fragment processing. In order for this to work, we need to disable writing to the depth buffer so that we use the existing 1.0 value, so we set glDepthMask to <code>GL_FALSE</code>.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://github.com/michaelpm54/">GitHub</a></li>
+                            <li><a href="#">#</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
