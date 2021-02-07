@@ -39,8 +39,7 @@ Intermediate-low level of Japanese proficiency.
 
 ## Projects
 
-[FreeCodeCamp certifications](https://www.freecodecamp.org/fccf4a01699-ec7a-4656-a0a5-
-1e95933e81f)
+[FreeCodeCamp certifications](https://www.freecodecamp.org/fccf4a01699-ec7a-4656-a0a5-1e95933e81f9)
 
 See other parts of this website and my GitHub page.
 
