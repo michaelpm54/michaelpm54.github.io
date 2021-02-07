@@ -1,6 +1,6 @@
 Title: CV
 Date: 2021-02-07
-Category: Misc
+Category: CV
 
 Michael McAssey  
 [michael.mcassey1@gmail.com](michael.mcassey1@gmail.com) [preferred]  
@@ -42,7 +42,7 @@ Intermediate-low level of Japanese proficiency.
 [FreeCodeCamp certifications](https://www.freecodecamp.org/fccf4a01699-ec7a-4656-a0a5-
 1e95933e81f)
 
-For more, see other parts of this website and my GitHub page.
+See other parts of this website and my GitHub page.
 
 ## Employment
 
