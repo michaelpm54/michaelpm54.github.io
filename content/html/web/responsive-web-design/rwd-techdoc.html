@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+
+	<title>OpenGL Technical Document</title>
+	<meta name="author" content="Michael McAssey" />
+</head>
+
+<body>
+	<nav id="navbar">
+		<header>OpenGL</header>
+		<a class="nav-link" href="#Initialisation">Initialisation</a>
+		<a class="nav-link" href="#Using_a_window">Using a window</a>
+		<a class="nav-link" href="#Buffers">Buffers</a>
+		<a class="nav-link" href="#Shaders">Shaders</a>
+		<a class="nav-link" href="#Drawing">Drawing</a>
+	</nav>
+	<main id="main-doc">
+		<section class="main-section" id="Initialisation">
+			<header>
+				Initialisation
+			</header>
+			<p>In order to use OpenGL functions you need some way of accessing them. Most platforms provide OpenGL
+				headers that you can include but they only provide an extremely outdated version of OpenGL.</p>
+			<p>Listed are some C and C++ libraries that can be used to access the newer OpenGL functions.</p>
+
+			<ul>
+				<li><a href="https://github.com/anholt/libepoxy">epoxy</a></li>
+				<li><a href="http://glew.sourceforge.net/">GLEW</a></li>
+				<li><a href="https://glad.dav1d.de/">Glad</li>
+				<li><a href="https://github.com/skaslev/gl3w">GL3W</a></li>
+				<li><a href="https://github.com/JRob774/opengl-loader">opengl-loader</a></li>
+			</ul>
+
+			<p>
+				My personal preference is epoxy because you can just include it and it lazily loads the functions you
+				use, without needing to explicitly call any initialisation functions.
+			</p>
+
+			<p>I also like to use glew. Here is an example of initialisation with glew in C++:</p>
+			<pre>
+    <code class="language-c++">
+    glewExperimental = GL_TRUE; // Enable modern GL
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+        throw glewGetErrorString(err);
+    </code>
+    </pre>
+		</section>
+
+		<section class="main-section" id="Using_a_window">
+			<header>
+				Using a window
+			</header>
+			<p>You need a surface to draw to with the API. This can be provided by a library such as SDL2, GLFW, SFML,
+				etc.
+			</p>
+			<p>These libraries provide a way to interact with the window using the mouse or keyboard, as well as system
+				events like pressing the "close" button on a window. In other words you perform actions, the library
+				tells you what you did then you can
+				respond to it with your code either in an event loop or through callbacks. GLFW uses callbacks, SDL2 and
+				SFML use an event loop. Whichever you choose, you have to explicitly poll for the events to receive
+				them. Some libraries provide a
+				way to <i>wait</i> for an event to occur instead of polling.</p>
+
+			<p>Here's what event polling looks like in SDL2:</p>
+
+			<pre>
+  <code class="language-c++">
+    SDL_Event e;
+    while (SDL_PollEvent(&e))
+    {
+      switch (e.type)
+      {
+        case SDL_QUIT:	
+          CloseProgram();
+          break;
+        case SDL_KEYDOWN:
+          if (e.key.keysym.sym == SDLK_q)
+          {
+              puts("Q key pressed!");
+              CloseProgram();
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  </code>
+  </pre>
+
+			<p>To use OpenGL you need to create an OpenGL context, which is just a chunk of memory on the GPU that lets
+				you interact with the GPU. The window library can create a context for you.</p>
+
+			<p>Creating a window and context in SDL2:</p>
+			<pre>
+    <code class="language-c++">
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_Window *window = SDL_CreateWindow("OpenGL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+    SDL_GLContext context = SDL_GL_CreateContext(window);
+    </code>
+    </pre>
+		</section>
+
+		<section class="main-section" id="Buffers">
+			<header>
+				Buffers
+			</header>
+			<p>Geometry data like triangles need to be sent to the GPU so that it can draw it. This is done through
+				buffers. You first allocate a buffer object, then you set its size, then you set its data.</p>
+
+			<pre>
+      <code class="language-c++">
+      // Triangle vertices
+      GLfloat vertices[] =
+      { /* x      y */
+           0.0f, -1.0f,
+           1.0f,  1.0f,
+           -1.0f, 1.0f,
+      };
+      
+      GLuint vertexBuffer;
+      glCreateBuffers(1, &vertexBuffer);
+      glNamedBufferStorage(vertexBuffer, sizeof(vertices), vertices, 0);
+      </code>
+      </pre>
+		</section>
+
+		<section class="main-section" id="Shaders">
+			<header>
+				Shaders
+			</header>
+			<p>Shaders operate on each vertex (each row seen above in the vertex data) and transform then shade/colour
+				the output. A transformation could be an animation or position in the world, and shading could be either
+				a simple colour or a texture.
+				There are many effects you can achieve with shaders.</p>
+			<p>The most basic shaders you can use to draw geometry are this pair of shaders:</p>
+			<h1>Vertex shader</h1>
+			<pre>
+    <code class="language-c">
+    #version 460
+    in vec2 a_position;
+    void main()
+    {
+      gl_Position = a_position;
+    }
+    </code>
+    </pre>
+			<h1>Fragment shader</h1>
+			<pre>
+    <code class="language-c">
+    #version 460
+    out vec4 fs_colour;
+    void main()
+    {
+      fs_colour = vec4(1, 0, 0, 1);
+    }
+    </code>
+    </pre> This draws a red triangle.
+		</section>
+
+		<section class="main-section" id="Drawing">
+			<header>
+				Drawing
+			</header>
+			<p>One last thing you need to do is bind a vertex buffer to a <strong>vertex array object</strong> which
+				describes the vertex layout. In the case above, it would be 2 floats per vertex, which we will use as a
+				position, making for a stride of
+				8 bytes between vertices.</p>
+			<p>When it comes time to actually render the scene to the window you call one of OpenGL's drawing functions,
+				such as <code>glDrawArrays</code>.</p>
+			<p>Example:</p>
+			<pre>
+    <code class="language-c">
+		glClear(GL_COLOR_BUFFER_BIT);
+		glBindVertexArray(triangleVao);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		SDL_GL_SwapWindow(window);
+	</code>
+    </pre>
+		</section>
+		<div id="extra-spacing"></div>
+	</main>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+	<script src="/js/prism.js"></script>
+	<link rel="stylesheet" href="/css/prism.css" />
+	<link rel="stylesheet" href="/css/rwd-techdoc.css" />
+</body>
+
+</html>

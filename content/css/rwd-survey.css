@@ -1,0 +1,53 @@
+body {
+    background-image: url("index.png");
+    background-size: 56px 28px;
+    background-color: rgb(255, 218, 133);
+    font-size: 25pt;
+}
+
+main {
+    font-family: system-ui, sans-serif;
+    width: 40vw;
+    background-color: #fafafa;
+    box-shadow: 1px 2px 3px 3px rgba(133, 130, 133, 1);
+    padding: 45px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+    border-radius: 10px;
+    border-style: dotted;
+    width: 200px;
+    height: 30px;
+    display: block;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-bottom: 40px;
+}
+
+label {
+    font-size: 15pt;
+}
+
+textarea {
+    min-width: 80%;
+    min-height: 150px;
+    resize: none;
+}
+
+#title {
+    height: 10px;
+}
+
+#description {
+    height: 10px;
+}

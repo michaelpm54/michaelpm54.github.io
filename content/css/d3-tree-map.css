@@ -1,0 +1,69 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: #4b9a46;
+}
+
+main {
+	padding-top: 5px;
+	margin: 0 auto;
+	margin-top: 40px;
+	outline: 12px double #51BF78;
+	outline-offset: 15px;
+	background-color: gainsboro;
+	width: 90vw;
+	margin-bottom: 40px;
+	border: 1px solid grey;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  text-align: center;
+  font-family: Noticia Text, Arial, Helvetica, sans-serif;
+}
+
+svg {
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+
+#title {
+	font-size: 30pt;
+	margin-bottom: 10px;
+}
+
+#description {
+	font-weight: bold;
+	padding-bottom: 12pt;
+}
+
+#legend {
+  	font-size: 15px;
+	margin: 0 auto;
+	margin-left: 100px;
+}
+
+#treemap {
+	box-shadow: black 0px 0px 4px;
+	background-color: #ccc;
+	margin-top: -35px;
+}
+
+#tooltip {
+	position: absolute;
+	background-color: cornflowerblue;
+	box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.6);
+	text-shadow: #444 0px 0px 2px;
+	color: white;
+	border-radius: 2px;
+	pointer-events: none;
+	box-shadow: 0 0 0 1pt cornflowerblue;
+	border: 1px solid blue;
+	border-radius: 2pt;
+	width: 10em;
+}

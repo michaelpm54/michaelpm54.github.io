@@ -1,0 +1,123 @@
+body {
+	background-color: pink;
+	overflow: hidden;
+	transition: background-color 2s;
+  }
+  
+  #root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	font-family: 'Sansita Swashed', cursive;
+	font-size: 19pt;
+  }
+  
+  i {
+	font-size: 30pt;
+	cursor: pointer;
+	color: #56d856;
+  }
+  
+  main {
+	width: 500px;
+	height: 500px;
+	background-color: white;
+	box-shadow: #888 2px 2px 2px 2px;
+	z-index: 0;
+  }
+  
+  #config {
+	display: flex;
+	justify-content: space-around;
+	user-select: none;
+  }
+  
+  .config-box {
+	display: block;
+	text-align: center;
+	width: 30%;
+  }
+  
+  #timer {
+	width: 50%;
+	height: 50%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+  }
+  
+  #heart {
+	position: absolute;
+	background-color: pink;
+	height: 150px;
+	width: 150px;
+	top: 48%;
+	transform: rotate(-45deg);
+	z-index: 0;
+  }
+  
+  #heart::after {
+	background-color: pink;
+	content: "";
+	border-radius: 50%;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	top: 0px;
+	left: 80px;
+	z-index: 0;
+  }
+  
+  #heart::before {
+	content: "";
+	background-color: pink;
+	border-radius: 50%;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	top: -80px;
+	left: 0px;
+	z-index: 0;
+  }
+  
+  #timer > span {
+	top: 0;
+	left: 40%;
+	font-size: 40pt;
+	align-self: center;
+	z-index: 1;
+	color: white;
+	text-shadow: black 2px 2px;
+  }
+  
+  #timer-label {
+	display: flex;
+	justify-content: center;
+	color: #004396;
+	font-size: 30pt;
+  }
+  
+  #controls {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	text-shadow: grey 1px 1px 1px;
+	cursor: pointer;
+	font-size: 23pt;
+  }
+  
+  #controls > *:hover {
+	font-size: 24pt;
+  }
+  
+  #timer-label {
+	margin: 0;
+  }
+  
+  .break {
+	background-color: #5685b5;
+  }
+  

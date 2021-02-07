@@ -1,0 +1,26 @@
+body {
+	background-color: rgb(189,200,255);
+	font-family: 'Exo', sans-serif;
+  }
+  
+  #root {
+	background-color: rgb(222,255,222);
+	padding: 4px;
+	border-radius: 3px;
+	box-shadow: #aaaaaa 0px 0px 6px 1px;
+  }
+  
+  #root > div {
+	display: flex;
+	flex-direction: row;
+  }
+  
+  #editor {
+	width: 24%;
+	margin-right: 2%;
+  }
+  
+  #preview {
+	width: 74%;
+	background-color: #eeeeee;
+  }
