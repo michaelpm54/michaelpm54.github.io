@@ -25,7 +25,7 @@ Both static and moving.
 ## Hierarchies
 
 
-![bvh](images/bvh.png)
+![bvh]({static}/images/bvh.png)
 
 ## Spatial partitioning
 
